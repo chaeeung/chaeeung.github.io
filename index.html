@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chae-Eun Kim | 김채은</title>
+<meta name="description" content="Chae-Eun Kim — Ph.D. student in Data Engineering at Pukyong National University. Satellite image gap-filling, super-resolution, and foundation models.">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #f5f8f8;
+    --text: #1b2426;
+    --muted: #5e6b6e;
+    --line: #e2e8e9;
+    --accent: #0f8f84;
+    --accent-soft: #e3f6f4;
+    --tile: #8ee4dc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #11181a;
+      --bg-soft: #172123;
+      --text: #e6eeef;
+      --muted: #9aaaad;
+      --line: #263335;
+      --accent: #5fd4c8;
+      --accent-soft: #183a38;
+      --tile: #3fb3a8;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Pretendard", -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.65;
+    font-size: 16px;
+  }
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* nav */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--line);
+  }
+  .nav-inner {
+    max-width: 960px; margin: 0 auto; padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .brand { font-weight: 700; color: var(--text); }
+  .nav-links { display: flex; gap: 20px; flex-wrap: wrap; font-size: 15px; }
+  .nav-links a { color: var(--muted); }
+  .nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+  main { max-width: 960px; margin: 0 auto; padding: 0 20px; }
+  section { padding: 56px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+  h2 {
+    font-size: 13px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); margin: 0 0 24px;
+  }
+
+  /* hero */
+  .hero { display: grid; grid-template-columns: 220px 1fr; gap: 48px; align-items: center; padding-top: 72px; }
+  .avatar {
+    width: 220px; height: 220px; border-radius: 50%;
+    background: var(--bg-soft); border: 1px solid var(--line);
+    display: grid; place-items: center; overflow: hidden;
+  }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 18%; }
+  .avatar .initials { font-size: 64px; font-weight: 700; color: var(--accent); }
+  .hero h1 { font-size: 40px; line-height: 1.2; margin: 0; }
+  .hero .ko { font-size: 22px; font-weight: 500; color: var(--muted); margin-left: 8px; }
+  .hero .role { font-size: 18px; margin: 10px 0 4px; }
+  .hero .affil { color: var(--muted); margin: 0; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+  .tag { background: var(--accent-soft); color: var(--accent); padding: 4px 12px; border-radius: 999px; font-size: 14px; font-weight: 500; }
+  .links { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    border: 1px solid var(--line); border-radius: 8px; padding: 7px 14px;
+    color: var(--text); font-size: 14px; font-weight: 500;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
+
+  /* about */
+  .about p { margin: 0 0 14px; max-width: 760px; }
+
+  /* lists */
+  .timeline { list-style: none; padding: 0; margin: 0; }
+  .timeline li { display: grid; grid-template-columns: 160px 1fr; gap: 20px; padding: 10px 0; }
+  .timeline .when { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .timeline .what strong { display: block; }
+  .timeline .what span { color: var(--muted); font-size: 15px; }
+
+  .pub-group { margin-bottom: 28px; }
+  .pub-group h3 { font-size: 17px; margin: 0 0 12px; }
+  .pub { padding: 14px 18px; border: 1px solid var(--line); border-radius: 10px; margin-bottom: 12px; background: var(--bg-soft); }
+  .pub .title { font-weight: 600; }
+  .pub .authors { font-size: 15px; margin-top: 2px; }
+  .pub .authors b { color: var(--accent); }
+  .pub .venue { color: var(--muted); font-size: 15px; font-style: italic; }
+  .pub .meta { display: flex; gap: 10px; align-items: center; margin-top: 6px; font-size: 14px; }
+  .badge { font-size: 12px; font-weight: 600; padding: 2px 8px; border-radius: 4px; background: var(--accent-soft); color: var(--accent); }
+
+  .research-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .card { border: 1px solid var(--line); border-radius: 12px; padding: 20px; }
+  .card h3 { margin: 0 0 8px; font-size: 17px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+
+  footer { text-align: center; color: var(--muted); font-size: 14px; padding: 40px 20px; }
+
+  @media (max-width: 720px) {
+    .hero { grid-template-columns: 1fr; gap: 24px; text-align: center; padding-top: 48px; }
+    .avatar { width: 160px; height: 160px; margin: 0 auto; }
+    .avatar .initials { font-size: 48px; }
+    .hero h1 { font-size: 32px; }
+    .hero .ko { display: block; margin: 4px 0 0; }
+    .tags, .links { justify-content: center; }
+    .brand { display: none; }
+    .nav-inner { justify-content: center; padding: 12px 16px; }
+    .nav-links { gap: 16px; font-size: 14px; }
+    .research-grid { grid-template-columns: 1fr; }
+    .timeline li { grid-template-columns: 1fr; gap: 2px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="brand" href="#">Chae-Eun Kim</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#research">Research</a>
+      <a href="#publications">Publications</a>
+      <a href="#presentations">Presentations</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ===== Profile ===== -->
+  <section class="hero">
+    <div class="avatar">
+      <img src="profile.jpg" alt="Chae-Eun Kim">
+
+    </div>
+    <div>
+      <h1>Chae-Eun Kim<span class="ko">김채은</span></h1>
+      <p class="role">Ph.D. Student, Department of Data Engineering</p>
+      <p class="affil">Pukyong National University, Busan, South Korea<br>
+        <a href="https://igdsl.github.io/" target="_blank" rel="noopener">Intelligent Geospatial Data Science Lab (iGDSL)</a></p>
+      <div class="tags">
+        <span class="tag">Satellite Gap-Filling</span>
+        <span class="tag">Super-Resolution</span>
+        <span class="tag">Foundation Models</span>
+        <span class="tag">Remote Sensing</span>
+      </div>
+      <div class="links">
+        <a class="btn" href="https://orcid.org/0009-0008-5229-7957" target="_blank" rel="noopener">ORCID</a>
+        <a class="btn" href="https://github.com/chaeeung" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://igdsl.github.io/" target="_blank" rel="noopener">Lab</a>
+        <a class="btn" href="mailto:chaeeung@pukyong.ac.kr">chaeeung@pukyong.ac.kr</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== About ===== -->
+  <section id="about" class="about">
+    <h2>About</h2>
+    <p>I am a Ph.D. student in Data Engineering at Pukyong National University, working in the
+      Intelligent Geospatial Data Science Lab (iGDSL).
+      I received my M.S. degree in Data Engineering from the same university in 2026.</p>
+    <p>My research focuses on improving the quality of satellite imagery with deep learning —
+      reconstructing spatiotemporal gaps in ocean color products such as GOCI-II chlorophyll-a,
+      enhancing spatial resolution through reference-based super-resolution, and exploring
+      foundation models for remote sensing.</p>
+  </section>
+
+  <!-- ===== Research ===== -->
+  <section id="research">
+    <h2>Research Interests</h2>
+    <div class="research-grid">
+      <div class="card">
+        <h3>Spatiotemporal Gap-Filling</h3>
+        <p>Recovering missing pixels caused by clouds and sensor limits in satellite products, using partial convolution and attention-based spatiotemporal models.</p>
+      </div>
+      <div class="card">
+        <h3>Super-Resolution</h3>
+        <p>Enhancing the spatial detail of satellite images with adaptive, reference-based super-resolution frameworks.</p>
+      </div>
+      <div class="card">
+        <h3>Foundation Models</h3>
+        <p>Applying large pretrained models to remote sensing tasks for robust, transferable image understanding.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Education ===== -->
+  <section id="education">
+    <h2>Education</h2>
+    <ul class="timeline">
+      <li><span class="when">2026.03 – Present</span>
+        <span class="what"><strong>Ph.D. in Data Engineering</strong><span>Pukyong National University, Busan</span></span></li>
+      <li><span class="when">2024.03 – 2026.02</span>
+        <span class="what"><strong>M.S. in Data Engineering</strong><span>Pukyong National University, Busan</span></span></li>
+    </ul>
+  </section>
+
+  <!-- ===== Publications ===== -->
+  <section id="publications">
+    <h2>Publications</h2>
+
+    <div class="pub-group">
+      <h3>Journal Articles</h3>
+      <div class="pub">
+        <div class="title">Spatiotemporal Gap-Filling of GOCI-II Chlorophyll-a Using Attention-Based Partial Convolution Model</div>
+        <div class="authors"><b>Kim, C.-E.</b>, Kim, B.-R., Mun, K.-Y., Chi, J.</div>
+        <div class="venue">IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing, vol. 19, pp. 19772–19791, 2026</div>
+        <div class="meta"><span class="badge">SCIE</span><a href="https://doi.org/10.1109/JSTARS.2026.3700216" target="_blank" rel="noopener">DOI</a></div>
+      </div>
+      <div class="pub">
+        <div class="title">Reconstruction of Missing Data in GOCI-II Chlorophyll-a Imagery Using Deep Learning-Based Spatio-Temporal Approaches</div>
+        <div class="authors"><b>Kim, C.-E.</b>, Chi, J.</div>
+        <div class="venue">Korean Journal of Remote Sensing, vol. 41, no. 1, pp. 53–64, 2025</div>
+        <div class="meta"><span class="badge">Scopus</span><a href="https://doi.org/10.7780/kjrs.2025.41.1.5" target="_blank" rel="noopener">DOI</a></div>
+      </div>
+      <div class="pub">
+        <div class="title">A Study on Changes in Maritime Traffic Due to the Pandemic using AIS Big Data and Density Analysis</div>
+        <div class="authors"><b>Kim, C.-E.</b>, Chi, J., Kim, T., Lee, J.</div>
+        <div class="venue">Journal of the Korean Society of Coastal Disaster Prevention, vol. 11, no. 4, pp. 177–186, 2024</div>
+        <div class="meta"><span class="badge">KCI</span><a href="https://doi.org/10.20481/kscdp.2024.11.4.177" target="_blank" rel="noopener">DOI</a></div>
+      </div>
+    </div>
+
+    <div class="pub-group">
+      <h3>Conference Papers</h3>
+      <div class="pub">
+        <div class="title">A Dynamically Weighted Framework for Adaptive Reference-Based Super-Resolution</div>
+        <div class="venue">The International Archives of the Photogrammetry, Remote Sensing and Spatial Information Sciences (XXV ISPRS Congress, Toronto), 2026</div>
+        <div class="meta"><a href="https://doi.org/10.5194/isprs-archives-xlix-b3-2026-1367-2026" target="_blank" rel="noopener">DOI</a></div>
+      </div>
+      <div class="pub">
+        <div class="title">A Study on the Detection of Infringement Threats Using Multiple Cybersecurity AI Models and Visualization of Response Based on ELK</div>
+        <div class="venue">Annual Conference of KIPS, 2023</div>
+        <div class="meta"><a href="https://doi.org/10.3745/PKIPS.Y2023M11A.799" target="_blank" rel="noopener">DOI</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Presentations ===== -->
+  <section id="presentations">
+    <h2>Conference Presentations</h2>
+    <ul class="timeline">
+      <li><span class="when">2026.10</span><span class="what"><strong>Korean Society of Remote Sensing Fall Conference</strong><span>Busan, Korea</span></span></li>
+      <li><span class="when">2026.07</span><span class="what"><strong>XXV ISPRS Congress</strong><span>Toronto, Canada</span></span></li>
+      <li><span class="when">2026.06</span><span class="what"><strong>Korean Hydrographic Society Spring Conference</strong><span>Busan, Korea</span></span></li>
+      <li><span class="when">2025.11</span><span class="what"><strong>GeoAI Data Society Fall Conference</strong><span>Jeju, Korea</span></span></li>
+      <li><span class="when">2025.10</span><span class="what"><strong>Korean Society of Remote Sensing Fall Conference</strong><span>Yeosu, Korea</span></span></li>
+      <li><span class="when">2025.08</span><span class="what"><strong>IGARSS 2025</strong><span>Brisbane, Australia</span></span></li>
+      <li><span class="when">2025.05</span><span class="what"><strong>ISRS 2025</strong><span>Incheon, Korea</span></span></li>
+      <li><span class="when">2024.10</span><span class="what"><strong>Korean Society of Remote Sensing Fall Conference</strong><span>Seoul, Korea</span></span></li>
+      <li><span class="when">2024.04</span><span class="what"><strong>Korean Association of Geographic Information Studies Spring Conference</strong><span>Busan, Korea</span></span></li>
+    </ul>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 Chae-Eun Kim · Last updated November 2026
+</footer>
+
+</body>
+</html>
